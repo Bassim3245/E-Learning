@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card card-custom p-4 p-md-5 shadow">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10 text-primary mb-3">
+                        <i class="bi bi-person-lock fs-1"></i>
+                    </div>
+                    <h3 class="fw-bold">Log In</h3>
+                    <p class="text-muted small">Sign in to your account</p>
+                </div>
+
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger py-2 small">
+                            {% for error in form.non_field_errors %}
+                                <div><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small" for="id_username_or_email">
+                            Username or Email
+                        </label>
+                        {{ form.username_or_email }}
+                        {% if form.username_or_email.errors %}
+                            <div class="text-danger small mt-1">{{ form.username_or_email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold small" for="id_password">Password</label>
+                        <div class="input-group">
+                            {{ form.password }}
+                            <button class="btn btn-outline-secondary" type="button" id="togglePwd">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        {% if form.password.errors %}
+                            <div class="text-danger small mt-1">{{ form.password.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Log In
+                    </button>
+                </form>
+
+                <p class="text-center small text-muted mt-4 mb-0">
+                    Don't have an account?
+                    <a href="{% url 'register' %}" class="fw-semibold text-primary text-decoration-none">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('togglePwd').addEventListener('click', function () {
+        const input = document.getElementById('id_password');
+        const isText = input.type === 'text';
+        input.type = isText ? 'password' : 'text';
+        this.querySelector('i').className = isText ? 'bi bi-eye' : 'bi bi-eye-slash';
+    });
+</script>
+{% endblock %}
