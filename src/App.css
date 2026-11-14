@@ -41,3 +41,36 @@ body {
   border-color: #a5b4fc !important;
 }
 
+/* Role Badges */
+.role-badge-admin {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  font-weight: 600;
+  border: 1px solid #d8b4fe;
+}
+
+.role-badge-teacher {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-weight: 600;
+  border: 1px solid #6ee7b7;
+}
+
+.role-badge-student {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+  border: 1px solid #7dd3fc;
+}
+
+/* Nav Pills Custom */
+.nav-pills .nav-link.active {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-pills .nav-link {
+  color: #475569;
+  font-weight: 500;
+}

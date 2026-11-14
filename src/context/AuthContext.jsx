@@ -18,6 +18,7 @@ import {
   onSnapshot
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { seedPlatformData } from "../utils/seedData";
 
 const AuthContext = createContext(null);
 
@@ -30,15 +31,22 @@ export function AuthProvider({ children }) {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Register function
+  // Auto-seed initial platform data (teachers & lessons) on initial load if empty
+  useEffect(() => {
+    seedPlatformData(false).catch((err) => console.warn("Seed check error:", err));
+  }, []);
+
+  // Register function with role support
   async function register({
     username,
     email,
     password,
     firstName,
     lastName,
-    phoneNumber,
-    academicYear
+    phoneNumber = "",
+    academicYear = "",
+    role = "student",
+    specialization = ""
   }) {
     // Check if username is already taken in Firestore
     const q = query(collection(db, "users"), where("username", "==", username.trim()));
@@ -56,15 +64,17 @@ export function AuthProvider({ children }) {
       await updateProfile(user, { displayName: fullName });
     }
 
-    // Save extended profile in Firestore
+    // Save extended profile in Firestore with role
     const profileData = {
       uid: user.uid,
       username: username.trim(),
       email: email.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
+      role: role.toLowerCase() || "student", // 'admin', 'teacher', 'student'
       phoneNumber: phoneNumber.trim() || "",
       academicYear: academicYear.trim() || "",
+      specialization: specialization.trim() || "",
       bio: "",
       createdAt: new Date().toISOString()
     };
@@ -105,6 +115,14 @@ export function AuthProvider({ children }) {
     setUserProfile((prev) => ({ ...prev, ...updates }));
   }
 
+  // Switch role for the active user (allows instant admin/teacher/student testing)
+  async function switchMyRole(newRole) {
+    if (!currentUser) return;
+    const userRef = doc(db, "users", currentUser.uid);
+    await updateDoc(userRef, { role: newRole });
+    setUserProfile((prev) => ({ ...prev, role: newRole }));
+  }
+
   // Auth state listener
   useEffect(() => {
     let unsubscribeProfile = null;
@@ -122,17 +140,20 @@ export function AuthProvider({ children }) {
               setUserProfile(docSnap.data());
             } else {
               // Fallback if document doesn't exist yet
-              setUserProfile({
+              const fallback = {
                 uid: user.uid,
                 email: user.email,
                 username: user.email.split("@")[0],
                 firstName: user.displayName || "",
                 lastName: "",
+                role: "student",
                 phoneNumber: "",
                 academicYear: "",
+                specialization: "",
                 bio: "",
                 createdAt: new Date().toISOString()
-              });
+              };
+              setUserProfile(fallback);
             }
             setLoading(false);
           },
@@ -157,14 +178,25 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  const role = userProfile?.role || "student";
+  const isAdmin = role === "admin";
+  const isTeacher = role === "teacher";
+  const isStudent = role === "student";
+
   const value = {
     currentUser,
     userProfile,
+    role,
+    isAdmin,
+    isTeacher,
+    isStudent,
     loading,
     register,
     login,
     logout,
-    updateUserProfile
+    updateUserProfile,
+    switchMyRole,
+    seedDataTrigger: seedPlatformData
   };
 
   return (
@@ -173,4 +205,3 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-

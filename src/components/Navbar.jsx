@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { currentUser, userProfile, logout } = useAuth();
+  const { currentUser, userProfile, role, switchMyRole, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -20,6 +20,18 @@ export default function Navbar() {
     currentUser?.displayName ||
     currentUser?.email?.split("@")[0] ||
     "User";
+
+  const getRoleBadge = (r) => {
+    switch (r) {
+      case "admin":
+        return <span className="badge role-badge-admin rounded-pill">Admin</span>;
+      case "teacher":
+        return <span className="badge role-badge-teacher rounded-pill">Teacher</span>;
+      case "student":
+      default:
+        return <span className="badge role-badge-student rounded-pill">Student</span>;
+    }
+  };
 
   return (
     <nav
@@ -53,8 +65,13 @@ export default function Navbar() {
             </li>
             {currentUser && (
               <li className="nav-item">
-                <Link className="nav-link text-white" to="/dashboard">
-                  <i className="bi bi-grid me-1"></i> Dashboard
+                <Link className="nav-link text-white d-flex align-items-center gap-1" to="/dashboard">
+                  <i className="bi bi-grid me-1"></i>
+                  {role === "admin"
+                    ? "Admin Panel"
+                    : role === "teacher"
+                    ? "Teacher Portal"
+                    : "Student Dashboard"}
                 </Link>
               </li>
             )}
@@ -71,21 +88,63 @@ export default function Navbar() {
                 >
                   <i className="bi bi-person-circle fs-5"></i>
                   <span>{displayName}</span>
+                  {getRoleBadge(role)}
                 </button>
-                <ul className="dropdown-menu dropdown-menu-end shadow">
+                <ul className="dropdown-menu dropdown-menu-end shadow" style={{ minWidth: "220px" }}>
                   <li className="dropdown-header">
-                    <strong>{userProfile?.firstName ? `${userProfile.firstName} ${userProfile.lastName}` : displayName}</strong>
+                    <strong>
+                      {userProfile?.firstName
+                        ? `${userProfile.firstName} ${userProfile.lastName}`
+                        : displayName}
+                    </strong>
                     <br />
                     <small className="text-muted">{currentUser.email}</small>
+                    <div className="mt-1">Role: {getRoleBadge(role)}</div>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
                     <Link className="dropdown-item" to="/dashboard">
-                      <i className="bi bi-person-badge me-2"></i> My Profile
+                      <i className="bi bi-person-badge me-2"></i> My Dashboard
                     </Link>
                   </li>
+
+                  {/* Quick Role Switcher for Testing/Demonstration */}
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li className="dropdown-header text-uppercase" style={{ fontSize: "0.7rem" }}>
+                    Switch Active View / Role:
+                  </li>
+                  <li>
+                    <button
+                      className={`dropdown-item small ${role === "admin" ? "fw-bold text-primary" : ""}`}
+                      onClick={() => switchMyRole("admin")}
+                      type="button"
+                    >
+                      <i className="bi bi-shield-check me-2"></i> View as Admin
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={`dropdown-item small ${role === "teacher" ? "fw-bold text-success" : ""}`}
+                      onClick={() => switchMyRole("teacher")}
+                      type="button"
+                    >
+                      <i className="bi bi-mortarboard me-2"></i> View as Teacher
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={`dropdown-item small ${role === "student" ? "fw-bold text-info" : ""}`}
+                      onClick={() => switchMyRole("student")}
+                      type="button"
+                    >
+                      <i className="bi bi-book me-2"></i> View as Student
+                    </button>
+                  </li>
+
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
@@ -116,4 +175,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

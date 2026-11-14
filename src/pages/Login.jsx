@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -23,11 +25,26 @@ export default function Login() {
 
     try {
       setLoading(true);
-      await login(usernameOrEmail, password);
-      navigate("/dashboard");
+      const user = await login(usernameOrEmail, password);
+
+      // Fetch user's role from Firestore for instant role-based redirect
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const role = userDoc.exists() ? userDoc.data().role : "student";
+
+      if (role === "admin") {
+        navigate("/admin");
+      } else if (role === "teacher") {
+        navigate("/teacher");
+      } else {
+        navigate("/student");
+      }
     } catch (err) {
       console.error(err);
-      if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+      if (
+        err.code === "auth/invalid-credential" ||
+        err.code === "auth/user-not-found" ||
+        err.code === "auth/wrong-password"
+      ) {
         setError("Invalid username/email or password.");
       } else if (err.code === "auth/too-many-requests") {
         setError("Too many failed login attempts. Please try again later.");
@@ -133,4 +150,3 @@ export default function Login() {
     </div>
   );
 }
-

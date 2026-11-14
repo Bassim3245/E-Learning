@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-  const { currentUser } = useAuth();
+  const { currentUser, role } = useAuth();
+
+  const getDashboardLink = () => {
+    if (role === "admin") return "/admin";
+    if (role === "teacher") return "/teacher";
+    return "/student";
+  };
 
   return (
     <div className="container py-4">
@@ -21,13 +27,13 @@ export default function Home() {
           </p>
           <div className="d-flex flex-wrap gap-3">
             {currentUser ? (
-              <Link to="/dashboard" className="btn btn-primary btn-lg px-4 shadow-sm">
-                <i className="bi bi-grid-fill me-2"></i> Go to My Dashboard
+              <Link to={getDashboardLink()} className="btn btn-primary btn-lg px-4 shadow-sm">
+                <i className="bi bi-grid-fill me-2"></i> Go to My Dashboard ({role.toUpperCase()})
               </Link>
             ) : (
               <>
                 <Link to="/register" className="btn btn-primary btn-lg px-4 shadow-sm">
-                  <i className="bi bi-person-plus-fill me-2"></i> Create Account
+                  <i className="bi bi-person-plus-fill me-2"></i> Get Started / Register
                 </Link>
                 <Link to="/login" className="btn btn-outline-dark btn-lg px-4">
                   <i className="bi bi-box-arrow-in-right me-2"></i> Log In
@@ -37,37 +43,50 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Roles Cards */}
         <div className="col-lg-5">
           <div className="card card-custom p-4 border-0 shadow">
             <div className="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
               <h5 className="fw-bold mb-0 text-dark">
-                <i className="bi bi-shield-check text-primary me-2"></i>Firebase Cloud Stack
+                <i className="bi bi-people-fill text-primary me-2"></i>Platform Roles &amp; Portals
               </h5>
-              <span className="badge bg-success-subtle text-success">React + Vite</span>
+              <span className="badge bg-success-subtle text-success">Dedicated Sidebars</span>
             </div>
 
             <div className="list-group list-group-flush gap-2">
               <div className="list-group-item border rounded-3 p-3 bg-light">
-                <div className="d-flex align-items-center justify-content-between mb-2">
+                <div className="d-flex align-items-center justify-content-between mb-1">
                   <h6 className="fw-bold mb-0 text-dark">
-                    <i className="bi bi-key-fill text-warning me-2"></i>Firebase Authentication
+                    <i className="bi bi-mortarboard-fill text-primary me-2"></i>Student Portal
                   </h6>
-                  <span className="badge bg-primary-subtle text-primary">Secure Auth</span>
+                  <span className="badge role-badge-student">Student</span>
                 </div>
                 <p className="small text-muted mb-0">
-                  Instant, secure authentication with encrypted passwords and session state persistence.
+                  Attend adaptive lessons, receive real-time comprehension-based interventions, and monitor learning scores.
                 </p>
               </div>
 
               <div className="list-group-item border rounded-3 p-3 bg-light">
-                <div className="d-flex align-items-center justify-content-between mb-2">
+                <div className="d-flex align-items-center justify-content-between mb-1">
                   <h6 className="fw-bold mb-0 text-dark">
-                    <i className="bi bi-database-fill text-info me-2"></i>Cloud Firestore Database
+                    <i className="bi bi-person-video3 text-success me-2"></i>Teacher Portal
                   </h6>
-                  <span className="badge bg-info-subtle text-info">Real-time DB</span>
+                  <span className="badge role-badge-teacher">Teacher</span>
                 </div>
                 <p className="small text-muted mb-0">
-                  Real-time storage for user profiles, emotion metrics, quiz scores, and personalized feedback.
+                  Manage assigned curriculum, publish adaptive lessons, and track student facial expression analytics.
+                </p>
+              </div>
+
+              <div className="list-group-item border rounded-3 p-3 bg-light">
+                <div className="d-flex align-items-center justify-content-between mb-1">
+                  <h6 className="fw-bold mb-0 text-dark">
+                    <i className="bi bi-shield-lock-fill text-purple me-2" style={{ color: "#7e22ce" }}></i>Admin Portal
+                  </h6>
+                  <span className="badge role-badge-admin">Admin</span>
+                </div>
+                <p className="small text-muted mb-0">
+                  Add and connect faculty teachers, manage lessons, configure user roles, and seed demo platform data.
                 </p>
               </div>
             </div>
@@ -102,11 +121,11 @@ export default function Home() {
         <div className="col-md-4">
           <div className="card card-custom h-100 p-4">
             <div className="text-primary fs-1 mb-3">
-              <i className="bi bi-chat-square-quote"></i>
+              <i className="bi bi-link-45deg"></i>
             </div>
-            <h5 className="fw-bold text-dark">Feedback & Assessment</h5>
+            <h5 className="fw-bold text-dark">Teacher-Lesson Connections</h5>
             <p className="text-secondary small mb-0">
-              Pairs facial metrics with direct student feedback and quiz scores to ensure optimal pedagogical retention.
+              Lessons are seamlessly assigned to faculty teachers in Firestore, with clear ownership and curriculum tracking.
             </p>
           </div>
         </div>
@@ -114,4 +133,3 @@ export default function Home() {
     </div>
   );
 }
-

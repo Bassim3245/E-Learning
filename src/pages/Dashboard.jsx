@@ -68,7 +68,8 @@ export default function Dashboard() {
   return (
     <div className="container py-4">
       {/* Welcome Banner */}
-      <div
+      <h1>Dashboard</h1>
+      {/* <div
         className="card card-custom p-4 p-md-5 mb-4 text-white"
         style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)" }}
       >
@@ -86,9 +87,9 @@ export default function Dashboard() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {successMsg && (
+      {/* {successMsg && (
         <div className="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
           <i className="bi bi-check-circle-fill me-2"></i>
           {successMsg}
@@ -112,10 +113,9 @@ export default function Dashboard() {
             aria-label="Close"
           ></button>
         </div>
-      )}
+      )} */}
 
-      <div className="row g-4">
-        {/* Left Column: Account Info & Edit Profile */}
+      {/* <div className="row g-4">
         <div className="col-lg-4">
           <div className="card card-custom p-4 mb-4">
             <h6 className="fw-bold text-dark mb-3">
@@ -149,7 +149,6 @@ export default function Dashboard() {
             </ul>
           </div>
 
-          {/* Edit Profile Form */}
           <div className="card card-custom p-4">
             <h6 className="fw-bold text-dark mb-3">
               <i className="bi bi-pencil-square text-primary me-2"></i> Edit Profile
@@ -230,9 +229,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Right Column: Emotion Engine Preview & Courses */}
         <div className="col-lg-8">
-          {/* Emotion Engine Preview Card */}
           <div className="card card-custom p-4 mb-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h6 className="fw-bold text-dark mb-0">
@@ -283,7 +280,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Courses Placeholder */}
           <div className="card card-custom p-4">
             <h6 className="fw-bold text-dark mb-3">
               <i className="bi bi-journal-bookmark text-primary me-2"></i> Learning Modules
@@ -316,7 +312,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
