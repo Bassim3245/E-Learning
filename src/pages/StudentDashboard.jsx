@@ -54,7 +54,7 @@ export default function StudentDashboard() {
 
   const sidebarItems = [
     { id: "overview", label: "My Learning", icon: "bi-speedometer2" },
-    // { id: "lessons", label: "Browse Lessons (الدروس)", icon: "bi-journal-bookmark-fill", badge: lessons.length },
+    { id: "lessons", label: "Browse Lessons (الدروس)", icon: "bi-journal-bookmark-fill", badge: lessons.length },
     // { id: "emotion", label: "Facial Emotion Engine", icon: "bi-camera-video-fill" },
     // { id: "profile", label: "My Profile", icon: "bi-person-badge" }
   ];
@@ -79,44 +79,10 @@ export default function StudentDashboard() {
 
         {/* Main Content Area */}
         <div className="col-lg-9 col-xl-10">
-          <h1>Student Dashboard</h1>
-          {/* Header Banner */}
-          {/* <div
-            className="card card-custom p-4 p-md-4 mb-4 text-white"
-            style={{
-              background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-              borderRadius: "1rem"
-            }}
-          >
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-              <div>
-                <div className="d-flex align-items-center gap-2 mb-1">
-                  <span className="badge role-badge-student px-3 py-1 rounded-pill">
-                    Student Portal
-                  </span>
-                  <span className="text-white-50 small">
-                    &bull; {userProfile?.academicYear || "Enrolled Student"}
-                  </span>
-                </div>
-                <h3 className="fw-bold mb-0">Hello, {displayName}!</h3>
-                <p className="text-white-50 small mb-0 mt-1">
-                  Adaptive E-Learning Platform &bull; Real-time emotion detection &amp; personalized feedback.
-                </p>
-              </div>
-
-              <div>
-                <button
-                  className="btn btn-primary btn-sm px-3 shadow-sm"
-                  onClick={() => setActiveTab("lessons")}
-                >
-                  <i className="bi bi-play-circle me-1"></i> Start Learning
-                </button>
-              </div>
-            </div>
-          </div> */}
+       
 
           {/* TAB 1: OVERVIEW */}
-          {/* {activeTab === "overview" && (
+          {activeTab === "overview" && (
             <div>
               <div className="row g-3 mb-4">
                 <div className="col-sm-6 col-xl-4">
@@ -269,13 +235,13 @@ export default function StudentDashboard() {
                 </div>
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 2: BROWSE LESSONS */}
-          {/* {activeTab === "lessons" && <StudentLessonsView lessons={lessons} />} */}
+          {activeTab === "lessons" && <StudentLessonsView lessons={lessons} />}
 
           {/* TAB 3: EMOTION ENGINE */}
-          {/* {activeTab === "emotion" && (
+          {activeTab === "emotion" && (
             <div className="card card-custom p-4">
               <h5 className="fw-bold text-dark mb-2">
                 <i className="bi bi-camera-video text-primary me-2"></i>
@@ -330,10 +296,10 @@ export default function StudentDashboard() {
                 </button>
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 4: PROFILE */}
-          {/* {activeTab === "profile" && (
+          {activeTab === "profile" && (
             <div className="card card-custom p-4" style={{ maxWidth: "600px" }}>
               <h5 className="fw-bold text-dark mb-3">
                 <i className="bi bi-person-badge text-primary me-2"></i>
@@ -419,7 +385,7 @@ export default function StudentDashboard() {
                 </button>
               </form>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

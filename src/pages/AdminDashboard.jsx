@@ -82,7 +82,7 @@ export default function AdminDashboard() {
     { id: "overview", label: "Dashboard Overview", icon: "bi-speedometer2" },
     { id: "lessons", label: "Lessons (الدروس)", icon: "bi-journal-bookmark-fill", badge: lessons.length },
     { id: "teachers", label: "Teachers (المعلمين)", icon: "bi-person-video3", badge: teachers.length },
-    // { id: "users", label: "Users & Roles", icon: "bi-people", badge: users.length },
+    { id: "users", label: "Users & Roles", icon: "bi-people", badge: users.length },
     // { id: "seed", label: "Seed Demo Data", icon: "bi-database-fill-gear" },
     // { id: "profile", label: "Admin Profile", icon: "bi-person-gear" }
   ];
@@ -104,52 +104,17 @@ export default function AdminDashboard() {
 
         {/* Main Content Area */}
         <div className="col-lg-9 col-xl-10">
-          <h1>Admin Dashboard</h1>
-          {/* <div
-            className="card card-custom p-4 p-md-4 mb-4 text-white"
-            style={{
-              background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
-              borderRadius: "1rem"
-            }}
-          >
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-              <div>
-                <div className="d-flex align-items-center gap-2 mb-1">
-                  <span className="badge role-badge-admin px-3 py-1 rounded-pill">
-                    Administrator Workspace
-                  </span>
-                  <span className="text-white-50 small">&bull; Full System Control</span>
-                </div>
-                <h3 className="fw-bold mb-0">
-                  Welcome, {userProfile?.firstName || userProfile?.username || "Admin"}!
-                </h3>
-                <p className="text-white-50 small mb-0 mt-1">
-                  Manage teachers, create and connect adaptive lessons, and monitor user enrollment.
-                </p>
-              </div>
+        
 
-              <div className="d-flex gap-2">
-                <button
-                  className="btn btn-sm btn-outline-light d-flex align-items-center gap-2"
-                  onClick={() => handleSeed(true)}
-                  disabled={seedLoading}
-                >
-                  <i className="bi bi-arrow-repeat"></i>
-                  <span>{seedLoading ? "Seeding..." : "Reset Demo Data"}</span>
-                </button>
-              </div>
-            </div>
-          </div> */}
-
-          {/* {seedMessage && (
+          {seedMessage && (
             <div className="alert alert-info py-2 px-3 small d-flex align-items-center mb-4">
               <i className="bi bi-info-circle-fill me-2 fs-6"></i>
               <div>{seedMessage}</div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 1: OVERVIEW */}
-          {/* {activeTab === "overview" && (
+          {activeTab === "overview" && (
             <div>
               <div className="row g-3 mb-4">
                 <div className="col-sm-6 col-xl-3">
@@ -325,37 +290,37 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 2: LESSONS MANAGEMENT */}
-          {/* {activeTab === "lessons" && (
+          {activeTab === "lessons" && (
             <AdminLessonsManager
               lessons={lessons}
               teachers={teachers}
-              onRefresh={() => {}}
+              onRefresh={() => { }}
             />
-          )} */}
+          )}
 
           {/* TAB 3: TEACHERS MANAGEMENT */}
-          {/* {activeTab === "teachers" && (
+          {activeTab === "teachers" && (
             <AdminTeachersManager
               teachers={teachers}
               lessons={lessons}
-              onRefresh={() => {}}
+              onRefresh={() => { }}
             />
-          )} */}
+          )}
 
           {/* TAB 4: USERS & ROLES */}
-          {/* {activeTab === "users" && (
+          {activeTab === "users" && (
             <AdminUsersManager
               users={users}
               currentUserId={currentUser?.uid}
-              onRefresh={() => {}}
+              onRefresh={() => { }}
             />
-          )} */}
+          )}
 
           {/* TAB 5: SEED DATA */}
-          {/* {activeTab === "seed" && (
+          {activeTab === "seed" && (
             <div className="card card-custom p-4">
               <h5 className="fw-bold text-dark mb-2">
                 <i className="bi bi-database-fill-gear text-primary me-2"></i>
@@ -410,10 +375,10 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 6: ADMIN PROFILE */}
-          {/* {activeTab === "profile" && (
+          {activeTab === "profile" && (
             <div className="card card-custom p-4" style={{ maxWidth: "600px" }}>
               <h5 className="fw-bold text-dark mb-3">
                 <i className="bi bi-person-gear text-primary me-2"></i>
@@ -496,7 +461,7 @@ export default function AdminDashboard() {
                 </button>
               </form>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

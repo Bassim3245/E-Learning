@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -11,8 +11,17 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { currentUser, role, login } = useAuth();
   const navigate = useNavigate();
+
+  // If already logged in, redirect directly to user's role page
+  useEffect(() => {
+    if (currentUser) {
+      if (role === "admin") navigate("/admin", { replace: true });
+      else if (role === "teacher") navigate("/teacher", { replace: true });
+      else navigate("/student", { replace: true });
+    }
+  }, [currentUser, role, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +38,11 @@ export default function Login() {
 
       // Fetch user's role from Firestore for instant role-based redirect
       const userDoc = await getDoc(doc(db, "users", user.uid));
-      const role = userDoc.exists() ? userDoc.data().role : "student";
+      const userRole = userDoc.exists() ? userDoc.data().role : "student";
 
-      if (role === "admin") {
+      if (userRole === "admin") {
         navigate("/admin");
-      } else if (role === "teacher") {
+      } else if (userRole === "teacher") {
         navigate("/teacher");
       } else {
         navigate("/student");
@@ -65,7 +74,7 @@ export default function Login() {
               <div className="d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10 text-primary mb-3">
                 <i className="bi bi-person-lock fs-1"></i>
               </div>
-              <h3 className="fw-bold text-dark">Welcome Back</h3>
+              <h3 className="fw-bold text-dark">Welcome</h3>
               <p className="text-muted small">Sign in to your account</p>
             </div>
 

@@ -59,17 +59,17 @@ export default function Dashboard() {
 
   const memberSince = userProfile?.createdAt
     ? new Date(userProfile.createdAt).toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      })
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    })
     : "Recently";
 
   return (
     <div className="container py-4">
       {/* Welcome Banner */}
       <h1>Dashboard</h1>
-      {/* <div
+      <div
         className="card card-custom p-4 p-md-5 mb-4 text-white"
         style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)" }}
       >
@@ -87,9 +87,9 @@ export default function Dashboard() {
             </p>
           </div>
         </div>
-      </div> */}
+      </div>
 
-      {/* {successMsg && (
+      {successMsg && (
         <div className="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
           <i className="bi bi-check-circle-fill me-2"></i>
           {successMsg}
@@ -113,9 +113,9 @@ export default function Dashboard() {
             aria-label="Close"
           ></button>
         </div>
-      )} */}
+      )}
 
-      {/* <div className="row g-4">
+      <div className="row g-4">
         <div className="col-lg-4">
           <div className="card card-custom p-4 mb-4">
             <h6 className="fw-bold text-dark mb-3">
@@ -312,7 +312,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

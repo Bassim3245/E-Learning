@@ -129,7 +129,7 @@ export default function TeacherDashboard() {
   };
 
   const sidebarItems = [
-    // { id: "overview", label: "Overview", icon: "bi-speedometer2" },
+    { id: "overview", label: "Overview", icon: "bi-speedometer2" },
     { id: "my_lessons", label: "My Lessons (دروسي)", icon: "bi-journal-bookmark-fill", badge: myLessons.length },
     // { id: "analytics", label: "Student Emotion Insights", icon: "bi-graph-up-arrow" },
     // { id: "profile", label: "Teacher Profile", icon: "bi-person-badge" }
@@ -151,46 +151,6 @@ export default function TeacherDashboard() {
         {/* Main Content Area */}
         <div className="col-lg-9 col-xl-10">
 
-          <h1>Teacher Dashboard</h1>
-          {/* Header Banner */}
-          {/* <div
-            className="card card-custom p-4 p-md-4 mb-4 text-white"
-            style={{
-              background: "linear-gradient(135deg, #064e3b 0%, #047857 100%)",
-              borderRadius: "1rem"
-            }}
-          >
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-              <div>
-                <div className="d-flex align-items-center gap-2 mb-1">
-                  <span className="badge role-badge-teacher px-3 py-1 rounded-pill">
-                    Faculty Instructor Portal
-                  </span>
-                  <span className="text-white-50 small">
-                    &bull; {userProfile?.specialization || "Computer Science"}
-                  </span>
-                </div>
-                <h3 className="fw-bold mb-0">
-                  Welcome, {userProfile?.firstName ? `Prof. ${userProfile.firstName} ${userProfile.lastName}` : userProfile?.username}!
-                </h3>
-                <p className="text-white-50 small mb-0 mt-1">
-                  Monitor how students respond to your lessons via real-time camera emotion analysis.
-                </p>
-              </div>
-
-              <div>
-                <button
-                  className="btn btn-light btn-sm fw-semibold shadow-sm"
-                  onClick={() => {
-                    setEditingLesson(null);
-                    setShowAddModal(true);
-                  }}
-                >
-                  <i className="bi bi-plus-circle me-1"></i> Add New Lesson
-                </button>
-              </div>
-            </div>
-          </div> */}
 
           {alertMsg && (
             <div className="alert alert-info py-2 px-3 small d-flex align-items-center mb-4">
@@ -200,7 +160,7 @@ export default function TeacherDashboard() {
           )}
 
           {/* TAB 1: OVERVIEW */}
-          {/* {activeTab === "overview" && (
+          {activeTab === "overview" && (
             <div>
               <div className="row g-3 mb-4">
                 <div className="col-sm-6 col-xl-4">
@@ -327,10 +287,10 @@ export default function TeacherDashboard() {
                 )}
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 2: MY LESSONS FULL VIEW */}
-          {/* {activeTab === "my_lessons" && (
+          {activeTab === "my_lessons" && (
             <div className="card card-custom p-4">
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h5 className="fw-bold text-dark mb-0">
@@ -405,10 +365,10 @@ export default function TeacherDashboard() {
                 </div>
               )}
             </div>
-          )} */}
+          )}
 
           {/* TAB 3: EMOTION ANALYTICS */}
-          {/* {activeTab === "analytics" && (
+          {activeTab === "analytics" && (
             <div className="card card-custom p-4">
               <h5 className="fw-bold text-dark mb-3">
                 <i className="bi bi-camera-video text-success me-2"></i>
@@ -463,10 +423,10 @@ export default function TeacherDashboard() {
                 </div>
               </div>
             </div>
-          )} */}
+          )}
 
           {/* TAB 4: TEACHER PROFILE */}
-          {/* {activeTab === "profile" && (
+          {activeTab === "profile" && (
             <div className="card card-custom p-4" style={{ maxWidth: "600px" }}>
               <h5 className="fw-bold text-dark mb-3">
                 <i className="bi bi-person-badge text-success me-2"></i>
@@ -553,12 +513,12 @@ export default function TeacherDashboard() {
                 </button>
               </form>
             </div>
-          )} */}
+          )}
         </div>
       </div>
 
       {/* Add / Edit Lesson Modal for Teacher */}
-      {/* {showAddModal && (
+      {showAddModal && (
         <div
           className="modal fade show d-block"
           tabIndex="-1"
@@ -673,7 +633,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

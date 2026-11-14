@@ -1,11 +1,9 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RoleRoute from "./components/RoleRoute";
 import RoleRedirect from "./components/RoleRedirect";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -19,7 +17,8 @@ export default function App() {
       <Navbar />
       <main className="flex-grow-1">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Default entry point: redirects to dashboard (which sends to /login if unauthenticated) */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
@@ -64,7 +63,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Footer />
     </div>
   );
 }

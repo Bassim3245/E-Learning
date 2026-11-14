@@ -203,3 +203,37 @@ export async function updateUserRole(userId, newRole) {
   await updateDoc(userRef, { role: newRole });
 }
 
+export async function addUser(userData) {
+  const userId = userData.uid || "user_" + Date.now();
+  const now = new Date().toISOString();
+  const payload = {
+    uid: userId,
+    username: userData.username?.trim() || userData.email?.split("@")[0] || "user",
+    email: userData.email?.trim() || "",
+    firstName: userData.firstName?.trim() || "",
+    lastName: userData.lastName?.trim() || "",
+    role: userData.role || "student",
+    phoneNumber: userData.phoneNumber?.trim() || "",
+    createdAt: now,
+    updatedAt: now
+  };
+
+  await setDoc(doc(db, USERS_COLLECTION, userId), payload);
+  return { id: userId, ...payload };
+}
+
+export async function updateUser(userId, updates) {
+  const userRef = doc(db, USERS_COLLECTION, userId);
+  const payload = {
+    ...updates,
+    updatedAt: new Date().toISOString()
+  };
+  await updateDoc(userRef, payload);
+}
+
+export async function deleteUser(userId) {
+  const userRef = doc(db, USERS_COLLECTION, userId);
+  await deleteDoc(userRef);
+}
+
+
